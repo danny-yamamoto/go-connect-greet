@@ -7,8 +7,8 @@ import (
 	"net/http"
 
 	"connectrpc.com/connect"
-	greetv1 "github.com/danny-yamamoto/go-connect-sample/gen/greet/v1"
-	"github.com/danny-yamamoto/go-connect-sample/gen/greet/v1/greetv1connect"
+	greetv1 "github.com/danny-yamamoto/go-connect-greet/gen/greet/v1"
+	"github.com/danny-yamamoto/go-connect-greet/gen/greet/v1/greetv1connect"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
 )
