@@ -10,5 +10,4 @@ FROM alpine
 RUN apk add --update --no-cache ca-certificates tzdata && rm -rf /var/cache/apk/*
 WORKDIR /app
 COPY --from=builder /app/main .
-EXPOSE 8080
 CMD [ "./main" ]
