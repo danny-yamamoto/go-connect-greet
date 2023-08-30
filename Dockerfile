@@ -1,15 +1,14 @@
-FROM golang:1.21-alpine AS builder
-
-WORKDIR /workspace
-
-RUN apk add --update --no-cache git && rm -rf /var/cache/apk/*
-COPY go.mod go.sum /workspace/
+FROM golang:1.21-bullseye AS builder
+WORKDIR /app
+RUN apt-get update && apt-get install -y curl unzip
+COPY . /app
 RUN go mod download
-COPY cmd /workspace/cmd
-RUN go build -o server ./cmd/server
+RUN ls -lrt
+RUN CGO_ENABLED=0 go build -o main /app/cmd/server/main.go
 
 FROM alpine
 RUN apk add --update --no-cache ca-certificates tzdata && rm -rf /var/cache/apk/*
-COPY --from=builder /workspace/server /usr/local/bin/server
+WORKDIR /app
+COPY --from=builder /app/main .
 EXPOSE 8080
-CMD [ "/usr/local/bin/server", "--server-stream-delay=500ms" ]
+CMD [ "./main" ]
