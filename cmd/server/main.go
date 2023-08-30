@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"connectrpc.com/connect"
 	greetv1 "github.com/danny-yamamoto/go-connect-greet/gen/greet/v1"
@@ -28,12 +29,19 @@ func (s *GreetServer) Greet(
 }
 
 func main() {
+	log.Print("starting server...")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+		log.Printf("defaulting to port %s", port)
+	}
 	greeter := &GreetServer{}
 	mux := http.NewServeMux()
 	path, handler := greetv1connect.NewGreetServiceHandler(greeter)
 	mux.Handle(path, handler)
+	log.Printf("listening on port %s", port)
 	http.ListenAndServe(
-		"localhost:8080",
+		":"+port,
 		// Use h2c so we can serve HTTP/2 without TLS.
 		h2c.NewHandler(mux, &http2.Server{}),
 	)
