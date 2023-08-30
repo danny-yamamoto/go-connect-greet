@@ -1,0 +1,18 @@
+# The configuration schema is defined by the service.proto file.
+# https://github.com/googleapis/googleapis/blob/master/google/api/service.proto
+
+type: google.api.Service
+config_version: 3
+name: "*.apigateway.shinonome-375705.cloud.goog"
+title: API Gateway + Cloud Run gRPC
+apis:
+  - name: greet.v1.GreetService
+usage:
+  rules:
+  # ListShelves methods can be called without an API Key.
+  - selector: greet.v1.GreetService.Greet
+    allow_unregistered_calls: true
+backend:
+  rules:
+    - selector: "*"
+      address: grpcs://go-connect-greet-zugntxuibq-an.a.run.app
