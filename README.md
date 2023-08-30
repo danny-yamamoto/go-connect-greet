@@ -15,6 +15,32 @@ protoc --proto_path=greet/v1 \
     greet.proto
 ```
 
+## Create `api_config.yaml`
+```yaml
+# The configuration schema is defined by the service.proto file.
+# https://github.com/googleapis/googleapis/blob/master/google/api/service.proto
+
+type: google.api.Service
+config_version: 3
+# In the name field, a service named *.apigateway.PROJECT_ID.cloud.goog where PROJECT_ID is the name of your Google Cloud project ID.
+name: "*.apigateway.shinonome-375705.cloud.goog"
+title: API Gateway + Cloud Run gRPC
+apis:
+  # package + service id
+  - name: greet.v1.GreetService
+usage:
+  rules:
+  # ListShelves methods can be called without an API Key.
+  # package + service id + rpc
+  - selector: greet.v1.GreetService.Greet
+    allow_unregistered_calls: true
+backend:
+  rules:
+    # Note: To use gRPC with TLS on Cloud Run, the address field must have the scheme grpcs:// instead of https://.
+    - selector: "*"
+      address: grpcs://go-connect-greet-zugntxuibq-an.a.run.app
+```
+
 ## Environments.
 ```bash
 export PROJECT_ID="shinonome-375705"
