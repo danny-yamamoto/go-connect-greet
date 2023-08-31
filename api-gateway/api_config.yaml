@@ -7,12 +7,17 @@ name: "*.apigateway.shinonome-375705.cloud.goog"
 title: API Gateway + Cloud Run gRPC
 apis:
   - name: greet.v1.GreetService
+  - name: weather.v1.WeatherService
 usage:
   rules:
   # ListShelves methods can be called without an API Key.
   - selector: greet.v1.GreetService.Greet
     allow_unregistered_calls: true
+  - selector: weather.v1.WeatherService.Weather
+    allow_unregistered_calls: true
 backend:
   rules:
-    - selector: "*"
+    - selector: greet.v1.GreetService.Greet
       address: grpcs://go-connect-greet-zugntxuibq-an.a.run.app
+    - selector: weather.v1.WeatherService.Weather
+      address: grpcs://go-connect-weather-zugntxuibq-an.a.run.app

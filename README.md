@@ -149,9 +149,13 @@ https://shinonome-api-gw-dev.retail-ai.jp/greet.v1.GreetService/Greet
 ```bash
 cp weather/v1/weather.proto .
 protoc --proto_path=weather/v1 \
+    --include_imports \
+    --include_source_info \
     --descriptor_set_out=./weather.pb \
     weather.proto
 protoc --proto_path=greet/v1 \
+    --include_imports \
+    --include_source_info \
     --descriptor_set_out=./greet.pb \
     greet.proto
 mv descriptor.pb api-gateway/weather/.
@@ -163,13 +167,13 @@ curl \
 ```
 
 ```bash
-export APIGATEWAY_CONFIG_ID_B="grpc-config-B"
+export APIGATEWAY_CONFIG_ID_B="grpc-config-2"
 
-cd api-gateway/weather/
+cd api-gateway/
 
 gcloud api-gateway api-configs create $APIGATEWAY_CONFIG_ID_B \
 --api=$APIGATEWAY_API --project=$PROJECT_ID \
---grpc-files=greet.yaml,greet.pb,weather.yaml,weather.pb
+--grpc-files=api_config.yaml,greet.pb,weather.pb
 
 gcloud api-gateway api-configs describe $APIGATEWAY_CONFIG_ID_B \
   --api=$APIGATEWAY_API --project=$PROJECT_ID
