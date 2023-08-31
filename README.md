@@ -149,12 +149,28 @@ https://shinonome-api-gw-dev.retail-ai.jp/greet.v1.GreetService/Greet
 ```bash
 cp weather/v1/weather.proto .
 protoc --proto_path=weather/v1 \
-    --descriptor_set_out=./descriptor.pb \
+    --descriptor_set_out=./weather.pb \
     weather.proto
+protoc --proto_path=greet/v1 \
+    --descriptor_set_out=./greet.pb \
+    greet.proto
 mv descriptor.pb api-gateway/weather/.
 
 curl \
     --header "Content-Type: application/json" \
     --data '{"condition": "Sunny"}' \
     https://go-connect-weather-zugntxuibq-an.a.run.app/weather.v1.WeatherService/Weather
+```
+
+```bash
+export APIGATEWAY_CONFIG_ID_B="grpc-config-B"
+
+cd api-gateway/weather/
+
+gcloud api-gateway api-configs create $APIGATEWAY_CONFIG_ID_B \
+--api=$APIGATEWAY_API --project=$PROJECT_ID \
+--grpc-files=greet.yaml,greet.pb,weather.yaml,weather.pb
+
+gcloud api-gateway api-configs describe $APIGATEWAY_CONFIG_ID_B \
+  --api=$APIGATEWAY_API --project=$PROJECT_ID
 ```
