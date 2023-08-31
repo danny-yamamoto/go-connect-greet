@@ -145,3 +145,16 @@ curl \
     --data '{"name": "Jane"}' \
 https://shinonome-api-gw-dev.retail-ai.jp/greet.v1.GreetService/Greet
 ```
+
+```bash
+cp weather/v1/weather.proto .
+protoc --proto_path=weather/v1 \
+    --descriptor_set_out=./descriptor.pb \
+    weather.proto
+mv descriptor.pb api-gateway/weather/.
+
+curl \
+    --header "Content-Type: application/json" \
+    --data '{"condition": "Sunny"}' \
+    https://go-connect-weather-zugntxuibq-an.a.run.app/weather.v1.WeatherService/Weather
+```
