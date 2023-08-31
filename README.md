@@ -64,7 +64,7 @@ export HTTPS_FORWARDING_RULE_NAME="shinonome-api-fw"
 ```
 ### Create api-configs.
 ```bash
-cd /workspaces/go-connect-greet/api-gateway/
+cd /workspaces/go-connect-greet/api-gateway/greet/
 
 gcloud api-gateway api-configs create $APIGATEWAY_CONFIG_ID \
 --api=$APIGATEWAY_API --project=$PROJECT_ID \
