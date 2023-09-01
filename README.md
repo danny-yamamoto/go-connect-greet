@@ -166,15 +166,20 @@ curl \
     https://go-connect-weather-zugntxuibq-an.a.run.app/weather.v1.WeatherService/Weather
 ```
 
+## Summarize the two APIs.
+### Create a new api-config.
 ```bash
 export APIGATEWAY_CONFIG_ID_B="grpc-config-2"
 
-cd api-gateway/
+cd /workspaces/go-connect-greet/api-gateway/
+cp ../weather/v1/weather.proto .
+cp ../greet/v1/greet.proto .
+# Create a descriptor set (`.pb` file) generated from the two .proto files.
+protoc --proto_path=. --descriptor_set_out=./descriptor.pb greet.proto weather.proto 
 
 gcloud api-gateway api-configs create $APIGATEWAY_CONFIG_ID_B \
 --api=$APIGATEWAY_API --project=$PROJECT_ID \
---grpc-files=api_config.yaml,greet.pb,weather.pb
-
-gcloud api-gateway api-configs describe $APIGATEWAY_CONFIG_ID_B \
-  --api=$APIGATEWAY_API --project=$PROJECT_ID
+--grpc-files=api_config.yaml,descriptor.pb
 ```
+
+### Edit the console screen; switch to api-config.
