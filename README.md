@@ -26,7 +26,7 @@ protoc --proto_path=greet/v1 \
 type: google.api.Service
 config_version: 3
 # In the name field, a service named *.apigateway.PROJECT_ID.cloud.goog where PROJECT_ID is the name of your Google Cloud project ID.
-name: "*.apigateway.shinonome-375705.cloud.goog"
+name: "*.apigateway.groundmeat-375705.cloud.goog"
 title: API Gateway + Cloud Run gRPC
 apis:
   # package + service id
@@ -47,20 +47,20 @@ backend:
 ## Environments.
 ```bash
 # API Gateway
-export PROJECT_ID="shinonome-375705"
-export APIGATEWAY_API="shinonome-grpc"
+export PROJECT_ID="groundmeat-375705"
+export APIGATEWAY_API="groundmeat-grpc"
 export APIGATEWAY_CONFIG_ID="grpc-config"
-export GATEWAY_ID="shinonome-gw"
+export GATEWAY_ID="groundmeat-gw"
 export GATEWAY_REGION="asia-northeast1"
 # Custom Domain
-export SERVERLESS_NEG_NAME="shinonome-api-gw-serverless-neg"
-export BACKEND_SERVICE_NAME="shinonome-api-gw-backend-svc"
-export URL_MAP_NAME="shinonome-api-gw-url-map"
-export IP_CUSTOM_DOMAIN="shinonome-api-dev"
+export SERVERLESS_NEG_NAME="groundmeat-api-gw-serverless-neg"
+export BACKEND_SERVICE_NAME="groundmeat-api-gw-backend-svc"
+export URL_MAP_NAME="groundmeat-api-gw-url-map"
+export IP_CUSTOM_DOMAIN="groundmeat-api-dev"
 export GW_CUSTOM_DOMAIN="hoge.example.jp"
-export SSL_CERTIFICATE_NAME="shinonome-api-cert"
-export TARGET_HTTP_PROXY_NAME="shinonome-api-gw-https-proxy"
-export HTTPS_FORWARDING_RULE_NAME="shinonome-api-fw"
+export SSL_CERTIFICATE_NAME="groundmeat-api-cert"
+export TARGET_HTTP_PROXY_NAME="groundmeat-api-gw-https-proxy"
+export HTTPS_FORWARDING_RULE_NAME="groundmeat-api-fw"
 ```
 ### Create api-configs.
 ```bash
@@ -88,7 +88,7 @@ gcloud api-gateway gateways create $GATEWAY_ID \
 curl \
     --header "Content-Type: application/json" \
     --data '{"name": "Jane"}' \
-https://shinonome-gw-8g4o26at.an.gateway.dev/greet.v1.GreetService/Greet
+https://groundmeat-gw-8g4o26at.an.gateway.dev/greet.v1.GreetService/Greet
 ```
 
 ## Configure HTTP(S) Load Balancing for API Gateway.
