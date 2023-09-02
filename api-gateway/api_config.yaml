@@ -14,6 +14,6 @@ usage:
 backend:
   rules:
   - selector: weather.v1.WeatherService.Weather
-    address: grpcs://go-connect-weather-zugntxuibq-an.a.run.app
+    address: grpcs://go-connect-weather-yyyy-an.a.run.app
   - selector: greet.v1.GreetService.Greet
-    address: grpcs://go-connect-greet-zugntxuibq-an.a.run.app
+    address: grpcs://go-connect-greet-xxxx-an.a.run.app

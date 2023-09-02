@@ -41,7 +41,7 @@ backend:
   rules:
     # Note: To use gRPC with TLS on Cloud Run, the address field must have the scheme grpcs:// instead of https://.
     - selector: "*"
-      address: grpcs://go-connect-greet-zugntxuibq-an.a.run.app
+      address: grpcs://go-connect-greet-xxxx-an.a.run.app
 ```
 
 ## Environments.
@@ -57,7 +57,7 @@ export SERVERLESS_NEG_NAME="shinonome-api-gw-serverless-neg"
 export BACKEND_SERVICE_NAME="shinonome-api-gw-backend-svc"
 export URL_MAP_NAME="shinonome-api-gw-url-map"
 export IP_CUSTOM_DOMAIN="shinonome-api-dev"
-export GW_CUSTOM_DOMAIN="shinonome-api-gw-dev.retail-ai.jp"
+export GW_CUSTOM_DOMAIN="hoge.example.jp"
 export SSL_CERTIFICATE_NAME="shinonome-api-cert"
 export TARGET_HTTP_PROXY_NAME="shinonome-api-gw-https-proxy"
 export HTTPS_FORWARDING_RULE_NAME="shinonome-api-fw"
@@ -143,7 +143,7 @@ gcloud compute forwarding-rules list
 curl \
     --header "Content-Type: application/json" \
     --data '{"name": "Jane"}' \
-https://shinonome-api-gw-dev.retail-ai.jp/greet.v1.GreetService/Greet
+https://hoge.example.jp/greet.v1.GreetService/Greet
 ```
 
 ```bash
@@ -163,7 +163,7 @@ mv descriptor.pb api-gateway/weather/.
 curl \
     --header "Content-Type: application/json" \
     --data '{"condition": "Sunny"}' \
-    https://go-connect-weather-zugntxuibq-an.a.run.app/weather.v1.WeatherService/Weather
+    https://go-connect-weather-xxxx-an.a.run.app/weather.v1.WeatherService/Weather
 ```
 
 ## Summarize the two APIs.
