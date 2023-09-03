@@ -9,7 +9,8 @@
 		"vscode": {
 			"extensions": [
 				"bufbuild.vscode-buf",
-				"plex.vscode-protolint"
+				"plex.vscode-protolint",
+				"bierner.markdown-mermaid"
 			]
 		}
 	},

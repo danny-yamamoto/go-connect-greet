@@ -12,7 +12,19 @@ cd /workspaces/go-connect-greet/
 wget https://github.com/protocolbuffers/protobuf/releases/download/v24.2/protoc-24.2-linux-x86_64.zip
 unzip protoc-24.2-linux-x86_64.zip 
 mv bin/protoc /usr/local/bin/
+```
 
+```mermaid
+flowchart LR
+    proto["greet.proto"]
+    pb["descriptor.pb"]
+    config["api_config.yaml"]
+    apiconfig["api-config resource"]
+    proto --> pb
+    pb --> apiconfig
+    config --> apiconfig
+```
+```bash
 protoc --proto_path=greet/v1 \
     --descriptor_set_out=./descriptor.pb \
     greet.proto
@@ -168,6 +180,19 @@ curl \
 
 ## Summarize the two APIs.
 ### Create a new api-config.
+```mermaid
+flowchart LR
+    proto1["greet.proto"]
+    proto2["weather.proto"]
+    config["api_config.yaml"]
+    pb["descriptor.pb"]
+    apiconfig["api-config resource"]
+    proto1 --> pb
+    proto2 --> pb
+    pb --> apiconfig
+    config --> apiconfig
+```
+
 ```bash
 export APIGATEWAY_CONFIG_ID_B="grpc-config-2"
 
@@ -176,7 +201,9 @@ cp ../weather/v1/weather.proto .
 cp ../greet/v1/greet.proto .
 # Create a descriptor set (`.pb` file) generated from the two .proto files.
 protoc --proto_path=. --descriptor_set_out=./descriptor.pb greet.proto weather.proto 
+```
 
+```bash
 gcloud api-gateway api-configs create $APIGATEWAY_CONFIG_ID_B \
 --api=$APIGATEWAY_API --project=$PROJECT_ID \
 --grpc-files=api_config.yaml,descriptor.pb
